@@ -103,6 +103,7 @@ while (1 == 1)
                                     string answer2 = Console.ReadLine();
                                     if (answer2 == "1")
                                     {
+                                        Active.ToString();
                                         Active.CheckoutCart();
                                         Console.WriteLine("Du återvänder nu till menyn.");
                                         Console.ReadLine();
