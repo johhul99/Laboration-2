@@ -24,109 +24,154 @@ while (1 == 1)
         Console.Clear();
         Console.WriteLine("Ange användarnamn:");
         string UsernameInput = Console.ReadLine();
-        Console.WriteLine("Ange lösenord.");
-        string PasswordInput = Console.ReadLine();
 
-        bool LoginSuccess = Login(UsernameInput, PasswordInput);
 
-        if (LoginSuccess)
+
+        bool UsernameSuccess = LoginUsername(UsernameInput);
+
+        if (UsernameSuccess)
         {
-            foreach (Customer C in Customers)
+            while (1 == 1)
             {
-                if (C.Username == UsernameInput)
+                Console.WriteLine("Ange lösenord.");
+                string PasswordInput = Console.ReadLine();
+
+                bool LoginSuccess = Login(UsernameInput, PasswordInput);
+                if (LoginSuccess)
                 {
-                    Customer Active = C;
 
-                    while (1 == 1)
+
+                    foreach (Customer C in Customers)
                     {
-                        Console.Clear();
-                        Console.WriteLine("Välkommen " + UsernameInput + "!");
-                        Console.WriteLine("Meny");
-                        Console.WriteLine("1. Handla");
-                        Console.WriteLine("2. Kundvagn");
-                        Console.WriteLine("3. Logga ut");
-                        string answer = Console.ReadLine();
-
-
-                        if (answer == "1")
+                        if (C.Username == UsernameInput)
                         {
+                            Customer Active = C;
+
                             while (1 == 1)
                             {
                                 Console.Clear();
-                                Console.Write("1"); Pigelin.ShowProduct();
-                                Console.Write("2"); Cola.ShowProduct();
-                                Console.Write("3"); Marabou.ShowProduct();
-                                Console.WriteLine();
-                                Console.WriteLine("Skriv in siffran framför den produkt du vill lägga till i varukorgen eller valfri annan tangent för att gå tillbaka till menyn.");
-                                string answer2 = Console.ReadLine();
-                                if ( answer2 == "1")
+                                Console.WriteLine("Välkommen " + UsernameInput + "!");
+                                Console.WriteLine("Meny");
+                                Console.WriteLine("1. Handla");
+                                Console.WriteLine("2. Kundvagn");
+                                Console.WriteLine("3. Logga ut");
+                                string answer = Console.ReadLine();
+
+
+                                if (answer == "1")
+                                {
+                                    while (1 == 1)
+                                    {
+                                        Console.Clear();
+                                        Console.Write("1"); Pigelin.ShowProduct();
+                                        Console.Write("2"); Cola.ShowProduct();
+                                        Console.Write("3"); Marabou.ShowProduct();
+                                        Console.WriteLine();
+                                        Console.WriteLine("Skriv in siffran framför den produkt du vill lägga till i varukorgen eller valfri annan tangent för att gå tillbaka till menyn.");
+                                        string answer2 = Console.ReadLine();
+                                        if (answer2 == "1")
+                                        {
+                                            Console.Clear();
+                                            Active.AddToCart(Pigelin);
+                                            Console.ReadLine();
+
+                                        }
+                                        else if (answer2 == "2")
+                                        {
+                                            Console.Clear();
+                                            Active.AddToCart(Cola);
+                                            Console.ReadLine();
+                                        }
+                                        else if (answer2 == "3")
+                                        {
+                                            Console.Clear();
+                                            Active.AddToCart(Marabou);
+                                            Console.ReadLine();
+                                        }
+                                        else
+                                        {
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                else if (answer == "2")
                                 {
                                     Console.Clear();
-                                    Active.AddToCart(Pigelin);
-                                    Console.ReadLine();
+                                    Active.ShowCart();
+                                    Console.WriteLine("Klicka 1 för att avsluta köp eller valfri tangent för att gå tillbaka.");
+                                    string answer2 = Console.ReadLine();
+                                    if (answer2 == "1")
+                                    {
+                                        Active.CheckoutCart();
+                                        Console.WriteLine("Du återvänder nu till menyn.");
+                                        Console.ReadLine();
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Du återvänder nu till menyn.");
+                                        Console.ReadLine();
+                                    }
 
                                 }
-                                else if (answer2 == "2")
+                                else if (answer == "3")
                                 {
                                     Console.Clear();
-                                    Active.AddToCart(Cola);
+                                    Console.WriteLine("Hejdå.");
                                     Console.ReadLine();
-                                }
-                                else if (answer2 == "3")
-                                {
-                                    Console.Clear();
-                                    Active.AddToCart(Marabou);
-                                    Console.ReadLine();
+                                    break;
                                 }
                                 else
                                 {
-                                    break;
+                                    Console.Clear();
+                                    Console.WriteLine("Vänligen svara med 1, 2 eller 3.");
+                                    Console.ReadLine();
                                 }
+
                             }
                         }
-
-                        else if (answer == "2")
-                        {
-                            Console.Clear();
-                            Active.ShowCart();
-                            Console.WriteLine("Klicka 1 för att avsluta köp eller valfri tangent för att gå tillbaka.");
-                            string answer2 = Console.ReadLine();
-                            if (answer2 == "1")
-                            {
-                                Active.CheckoutCart();
-                                Console.WriteLine("Du återvänder nu till menyn.");
-                                Console.ReadLine();
-                            }
-                            else
-                            {
-                                Console.WriteLine("Du återvänder nu till menyn.");
-                                Console.ReadLine();
-                            }
-
-                        }
-                        else if (answer == "3")
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Hejdå.");
-                            Console.ReadLine();
-                            break;
-                        }
-                        else
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Vänligen svara med 1, 2 eller 3.");
-                            Console.ReadLine();
-                        }
-
                     }
+                    break;
                 }
-            }
-        }
+                else
+                {
+                    Console.WriteLine("Fel lösenord, vill du försöka igen? Skriv JA");
+                    string answer = Console.ReadLine();
+                    if (answer == "JA")
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Ange användarnamn:");
+                        Console.WriteLine(UsernameInput);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }       
+            }             
+        }   
         else
         {
-            Console.WriteLine("Felaktigt inlogg, du skickas tillbaka till startskärmen.");
-            Console.ReadLine();
-        }
+                Console.WriteLine("Användarnamnet finns ej registrerat, vill du registrera dig? Skriv: JA");
+                string answer = Console.ReadLine();
+                if (answer == "JA")
+                {
+                Console.Clear();
+                Console.WriteLine("Ange användarnamn:");
+                Console.WriteLine(UsernameInput);
+                    Console.WriteLine("Skriv in ditt önskade lösenord.");
+                    string InputPass = Console.ReadLine();
+                    Customer c2 = new Customer(UsernameInput, InputPass);
+                    Customers.Add(c2);
+                    Console.WriteLine("Du är nu registrerad och kan logga in, du blir omdirigerad till hemskärmen.");
+                    Console.ReadLine();                   
+                }
+                else
+                {
+                    Console.WriteLine("Du blir omdirigerad till hemskärmen.");
+                }
+            }
+        
     }
     else if (answer1 == "2")
     {
@@ -175,6 +220,18 @@ bool Register (string user)
     return true;
 }
 
+
+bool LoginUsername (string user)
+{
+    foreach (Customer c in Customers)
+    {
+        if (c.Username == user)
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 bool Login (string user, string pass)
 {
