@@ -16,7 +16,7 @@ while (1 == 1)
     Console.WriteLine("Välkommen till Johans Kiosk!");
     Console.WriteLine("1. Logga in");
     Console.WriteLine("2. Registrera ny kund");
-    Console.WriteLine("Valfri annan tangent för att avsluta.");
+    Console.WriteLine("Valfri annan symbol eller klicka enter för att avsluta.");
     Console.WriteLine("Vänligen svara med 1 eller 2 för att gå vidare.");
     string answer1 = Console.ReadLine();
     if (answer1 == "1")
@@ -67,7 +67,7 @@ while (1 == 1)
                                         Console.Write("2"); Cola.ShowProduct();
                                         Console.Write("3"); Marabou.ShowProduct();
                                         Console.WriteLine();
-                                        Console.WriteLine("Skriv in siffran framför den produkt du vill lägga till i varukorgen eller valfri annan tangent för att gå tillbaka till menyn.");
+                                        Console.WriteLine("Skriv in siffran framför den produkt du vill lägga till i varukorgen eller valfri annan symbol för att gå tillbaka till menyn.");
                                         string answer2 = Console.ReadLine();
                                         if (answer2 == "1")
                                         {
@@ -99,7 +99,7 @@ while (1 == 1)
                                 {
                                     Console.Clear();
                                     Active.ShowCart();
-                                    Console.WriteLine("Klicka 1 för att avsluta köp eller valfri tangent för att gå tillbaka.");
+                                    Console.WriteLine("Klicka 1 för att avsluta köp eller valfri symbol för att gå tillbaka.");
                                     string answer2 = Console.ReadLine();
                                     if (answer2 == "1")
                                     {
@@ -137,7 +137,7 @@ while (1 == 1)
                 }
                 else
                 {
-                    Console.WriteLine("Fel lösenord, vill du försöka igen? Skriv JA");
+                    Console.WriteLine("Fel lösenord, vill du försöka igen? Skriv JA. Skriv annars valfri symbol eller klicka bara enter för att komma till hemskärmen.");
                     string answer = Console.ReadLine();
                     if (answer == "JA")
                     {
@@ -154,7 +154,7 @@ while (1 == 1)
         }   
         else
         {
-                Console.WriteLine("Användarnamnet finns ej registrerat, vill du registrera dig? Skriv: JA");
+                Console.WriteLine("Användarnamnet finns ej registrerat, vill du registrera dig? Skriv: JA. Skriv annars valfri symbol eller klicka enter för att komma till hemskärmen.");
                 string answer = Console.ReadLine();
                 if (answer == "JA")
                 {
@@ -177,28 +177,38 @@ while (1 == 1)
     }
     else if (answer1 == "2")
     {
-        Console.Clear();
-        Console.WriteLine("Skriv in önskat användarnamn.");
-        string UsernameInput = Console.ReadLine();
-
-        bool RegistrationSuccess = Register(UsernameInput);
-        if (RegistrationSuccess)
-        {
-            Console.WriteLine("Skriv in önskat lösenord.");
-            string PasswordInput = Console.ReadLine();
-
-            Customer c1 = new Customer(UsernameInput, PasswordInput);
-            Customers.Add(c1);
-            Console.WriteLine("Du är nu registrerad, du kan nu logga in och dirigeras om till hemskärmen.");
-            Console.ReadLine();
-        }
-        else
+        while (1 == 1)
         {
             Console.Clear();
-            Console.WriteLine("Användarnamn upptaget! Du skickas tillbaka till hemskärmen.");
-            Console.ReadLine();
-        }
+            Console.WriteLine("Skriv in önskat användarnamn.");
+            string UsernameInput = Console.ReadLine();
 
+            bool RegistrationSuccess = Register(UsernameInput);
+            if (RegistrationSuccess)
+            {
+                Console.WriteLine("Skriv in önskat lösenord.");
+                string PasswordInput = Console.ReadLine();
+
+                Customer c1 = new Customer(UsernameInput, PasswordInput);
+                Customers.Add(c1);
+                Console.WriteLine("Du är nu registrerad, du kan nu logga in och dirigeras om till hemskärmen.");
+                Console.ReadLine();
+                break;
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Användarnamn upptaget! Skriv JA för att försöka igen eller valfri annan symbol eller klicka enter för att komma till hemskärmen.");
+                string answer = Console.ReadLine();
+                if (answer == "JA")
+                {
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
     }
     else
     {
@@ -266,8 +276,8 @@ public class Product
 
 public class Customer
 {
-    public string Username;
-    public string Password;
+    public string Username { get; private set; }
+    public string Password { get; private set; }
     public List<Product> Cart = new List<Product>();
 
     public Customer (string username, string password)
