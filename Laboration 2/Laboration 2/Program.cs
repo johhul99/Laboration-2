@@ -4,6 +4,8 @@ Product Pigelin = new Product("Pigelin", 12);
 Product Cola = new Product("Coca Cola", 15.99);
 Product Marabou = new Product("Marabou", 24.95);
 
+List <Product> products = new List<Product> { { Pigelin }, { Cola }, { Marabou } };
+
 Customer Test1 = new Customer("Test1", "Test1");
 Customer Test2 = new Customer("Test2", "Test2");
 Customer Test3 = new Customer("Test3", "Test3");
@@ -67,30 +69,29 @@ while (1 == 1)
                                         Console.Write("2"); Cola.ShowProduct();
                                         Console.Write("3"); Marabou.ShowProduct();
                                         Console.WriteLine();
-                                        Console.WriteLine("Skriv in siffran framför den produkt du vill lägga till i varukorgen eller valfri annan symbol för att gå tillbaka till menyn.");
+                                        Console.WriteLine("Skriv in siffran framför den produkt du vill lägga till i varukorgen eller 0 för att gå tillbaka till menyn.");
                                         string answer2 = Console.ReadLine();
-                                        if (answer2 == "1")
+                                        if (answer2 == "0")
                                         {
-                                            Console.Clear();
-                                            Active.AddToCart(Pigelin);
-                                            Console.ReadLine();
-
+                                            break;
                                         }
-                                        else if (answer2 == "2")
+                                        else if (answer2 == "1" || answer2 == "2" || answer2 == "3")
                                         {
-                                            Console.Clear();
-                                            Active.AddToCart(Cola);
-                                            Console.ReadLine();
-                                        }
-                                        else if (answer2 == "3")
-                                        {
-                                            Console.Clear();
-                                            Active.AddToCart(Marabou);
-                                            Console.ReadLine();
+                                            for (int i = 0; i < products.Count; i++)
+                                            {
+                                                
+                                                if (Convert.ToInt32(answer2) == i + 1)
+                                                {
+                                                    Console.Clear();
+                                                    Active.AddToCart(products[i]);
+                                                    Console.ReadLine();
+                                                }
+                                            }
                                         }
                                         else
                                         {
-                                            break;
+                                            Console.WriteLine("Vänligen svara med en av siffroran framför en av produkterna eller 0 om du vill gå tillbaka til menyn.");
+                                            Console.ReadLine();
                                         }
                                     }
                                 }
