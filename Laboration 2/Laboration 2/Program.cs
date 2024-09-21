@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.Design;
+﻿using System.Runtime.InteropServices.JavaScript;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 Product Pigelin = new Product("Pigelin", 12);
 Product Cola = new Product("Coca Cola", 15.99);
@@ -6,12 +8,15 @@ Product Marabou = new Product("Marabou", 24.95);
 
 List <Product> products = new List<Product> { { Pigelin }, { Cola }, { Marabou } };
 
-Customer Test1 = new Customer("Test1", "Test1");
-Customer Test2 = new Customer("Test2", "Test2");
-Customer Test3 = new Customer("Test3", "Test3");
+Customer Test1 = new Customer("Test1", "Test1", new List<Product>());
+Customer Test2 = new Customer("Test2", "Test2", new List<Product>());
+Customer Test3 = new Customer("Test3", "Test3", new List<Product>());
 
 List<Customer> Customers = new List<Customer> { { Test1 }, { Test2 }, { Test3 } };
 
+string filePath = "data.json";
+
+LoadObjects();
 while (1 == 1)
 {
     Console.Clear();
@@ -26,11 +31,7 @@ while (1 == 1)
         Console.Clear();
         Console.WriteLine("Ange användarnamn:");
         string UsernameInput = Console.ReadLine();
-
-
-
         bool UsernameSuccess = LoginUsername(UsernameInput);
-
         if (UsernameSuccess)
         {
             while (1 == 1)
@@ -69,13 +70,9 @@ while (1 == 1)
                                         Console.Write("2"); Cola.ShowProduct();
                                         Console.Write("3"); Marabou.ShowProduct();
                                         Console.WriteLine();
-                                        Console.WriteLine("Skriv in siffran framför den produkt du vill lägga till i varukorgen eller 0 för att gå tillbaka till menyn.");
+                                        Console.WriteLine("Skriv in siffran framför den produkt du vill lägga till i varukorgen eller valfri symbol för att gå tillbaka till menyn.");
                                         string answer2 = Console.ReadLine();
-                                        if (answer2 == "0")
-                                        {
-                                            break;
-                                        }
-                                        else if (answer2 == "1" || answer2 == "2" || answer2 == "3")
+                                        if (answer2 == "1" || answer2 == "2" || answer2 == "3")
                                         {
                                             for (int i = 0; i < products.Count; i++)
                                             {
@@ -90,8 +87,10 @@ while (1 == 1)
                                         }
                                         else
                                         {
-                                            Console.WriteLine("Vänligen svara med en av siffroran framför en av produkterna eller 0 om du vill gå tillbaka til menyn.");
+                                            Console.Clear();
+                                            Console.WriteLine("Du blir omdirigerad tillbaka til menyn.");
                                             Console.ReadLine();
+                                            break;
                                         }
                                     }
                                 }
@@ -164,7 +163,7 @@ while (1 == 1)
                 Console.WriteLine(UsernameInput);
                     Console.WriteLine("Skriv in ditt önskade lösenord.");
                     string InputPass = Console.ReadLine();
-                    Customer c2 = new Customer(UsernameInput, InputPass);
+                    Customer c2 = new Customer(UsernameInput, InputPass, new List<Product>());
                     Customers.Add(c2);
                     Console.WriteLine("Du är nu registrerad och kan logga in, du blir omdirigerad till hemskärmen.");
                     Console.ReadLine();                   
@@ -190,7 +189,7 @@ while (1 == 1)
                 Console.WriteLine("Skriv in önskat lösenord.");
                 string PasswordInput = Console.ReadLine();
 
-                Customer c1 = new Customer(UsernameInput, PasswordInput);
+                Customer c1 = new Customer(UsernameInput, PasswordInput, new List<Product>());
                 Customers.Add(c1);
                 Console.WriteLine("Du är nu registrerad, du kan nu logga in och dirigeras om till hemskärmen.");
                 Console.ReadLine();
@@ -218,6 +217,7 @@ while (1 == 1)
         break;
     }
 }
+SaveObjects();
 
 
 
@@ -258,15 +258,33 @@ bool Login (string user, string pass)
     return false;
 }
 
+void SaveObjects()
+{
+    string jsonString = JsonSerializer.Serialize(Customers, new JsonSerializerOptions { WriteIndented = true });
+    File.WriteAllText(filePath, jsonString);
+}
+
+void LoadObjects()
+{
+    string savedJson = File.ReadAllText(filePath);
+    var options = new JsonSerializerOptions
+    {
+        IncludeFields = true, 
+        WriteIndented = true
+    };
+
+    Customers = JsonSerializer.Deserialize<List<Customer>>(savedJson, options);
+}
 public class Product
 {
-    public string Name;
-    public double Price;
+    public string Name { get; set; }
+    public double Price {  get; set; }
 
-    public Product(string name, double price)
+    public Product() { }
+    public Product(string Name, double Price)
     {
-        Name = name;
-        Price = price;
+        this.Name = Name;
+        this.Price = Price;
     }
 
     public void ShowProduct()
@@ -279,14 +297,14 @@ public class Customer
 {
     public string Username { get; private set; }
     public string Password { get; private set; }
-    public List<Product> Cart = new List<Product>();
+    public List<Product> Cart { get; set; }
 
-    public Customer (string username, string password)
+    public Customer(string Username, string Password, List<Product> Cart)
     {
-        Username = username;
-        Password = password;
+        this.Username = Username;
+        this.Password = Password;
+        this.Cart = Cart ?? new List<Product>();
     }
-
 
     public List<Product> CheckoutCart()
     {
