@@ -23,6 +23,7 @@ List<Customer> Customers = new List<Customer> { { Test1 }, { Test2 }, { Test3 },
 
 
 string filePath = "data.json";
+
 LoadObjects();
 
 while (1 == 1)
@@ -57,6 +58,7 @@ while (1 == 1)
                         if (C.Username == UsernameInput)
                         {
                             Customer Active = C;
+                            string valuta = "SEK";
 
                             while (1 == 1)
                             {
@@ -65,18 +67,18 @@ while (1 == 1)
                                 Console.WriteLine("Meny");
                                 Console.WriteLine("1. Handla");
                                 Console.WriteLine("2. Kundvagn");
-                                Console.WriteLine("3. Logga ut");
+                                Console.WriteLine("3. Ändra valuta");
+                                Console.WriteLine("4. Logga ut");
                                 ConsoleKeyInfo answer = Console.ReadKey();
-
-
+                                
                                 if (answer.Key == ConsoleKey.D1)
                                 {
                                     while (1 == 1)
                                     {
                                         Console.Clear();
-                                        Console.Write("1"); Pigelin.ShowProduct();
-                                        Console.Write("2"); Cola.ShowProduct();
-                                        Console.Write("3"); Marabou.ShowProduct();
+                                        Console.Write("1"); Pigelin.ShowProduct(valuta);
+                                        Console.Write("2"); Cola.ShowProduct(valuta);
+                                        Console.Write("3"); Marabou.ShowProduct(valuta);
                                         Console.WriteLine();
                                         Console.WriteLine("Skriv in siffran framför den produkt du vill lägga till i varukorgen och tryck enter eller valfri symbol och/eller enter för att gå tillbaka till menyn.");
                                         string answer2 = Console.ReadLine();
@@ -89,7 +91,7 @@ while (1 == 1)
                                                 {
                                                     Console.Clear();
                                                     Active.AddToCart(products[i]);
-                                                    Console.ReadLine();
+                                                    Console.ReadKey();
                                                 }
                                             }
                                         }
@@ -97,7 +99,7 @@ while (1 == 1)
                                         {
                                             Console.Clear();
                                             Console.WriteLine("Du blir omdirigerad tillbaka til menyn.");
-                                            Console.ReadLine();
+                                            Console.ReadKey();
                                             break;
                                         }
                                     }
@@ -105,36 +107,80 @@ while (1 == 1)
                                 else if (answer.Key == ConsoleKey.D2)
                                 {
                                     Console.Clear();
-                                    Active.ShowCart();
+                                    Active.ShowCart(valuta);
                                     Console.WriteLine("Skriv in 1 för att avsluta köp eller valfri symbol för att gå tillbaka.");
                                     string answer2 = Console.ReadLine();
                                     if (answer2 == "1")
                                     {
                                         Console.Clear();
-                                        Active.ToString();
-                                        Active.CheckoutCart();
+                                        Active.ToString(valuta);
+                                        Active.CheckoutCart(valuta);
                                         Console.WriteLine("Du återvänder nu till menyn.");
-                                        Console.ReadLine();
+                                        Console.ReadKey();
                                     }
                                     else
                                     {
                                         Console.WriteLine("Du återvänder nu till menyn.");
-                                        Console.ReadLine();
+                                        Console.ReadKey();
                                     }
 
                                 }
                                 else if (answer.Key == ConsoleKey.D3)
                                 {
                                     Console.Clear();
+                                    Console.WriteLine("Nuvarande valuta: " + valuta);
+                                    Console.WriteLine("Vilken valuta vill du se priser i?");
+                                    Console.WriteLine("SEK");
+                                    Console.WriteLine("EUR");
+                                    Console.WriteLine("GBP");
+                                    Console.WriteLine("Skriv in önskad valuta och klicka enter eller annat svar för att gå tillbaka till menyn.");
+                                    string answer2 = Console.ReadLine();
+                                    if (answer2 == valuta)
+                                    {
+                                        Console.Clear();
+                                        Console.WriteLine("Du ser redan priser i " + answer2 + ".");
+                                        Console.ReadKey();
+                                    }
+                                    else if (answer2 == "GBP")
+                                    {
+                                        Console.Clear();
+                                        valuta = "GBP";
+                                        Console.WriteLine("Du har bytt valuta till GBP.");
+                                        Console.ReadKey();
+                                    }
+                                    else if (answer2 == "EUR")
+                                    {
+                                        Console.Clear();
+                                        valuta = "EUR";
+                                        Console.WriteLine("Du har bytt valuta till EUR.");
+                                        Console.ReadKey();
+                                    }
+                                    else if (answer2 == "SEK")
+                                    {
+                                        Console.Clear();
+                                        valuta = "SEK";
+                                        Console.WriteLine("Du har bytt valuta till SEK.");
+                                        Console.ReadKey();
+                                    }
+                                    else
+                                    {
+                                        Console.Clear();
+                                        Console.WriteLine("Du blir omdirigerad till menyn.");
+                                        Console.ReadKey();
+                                    }
+                                }
+                                else if (answer.Key == ConsoleKey.D4)
+                                {
+                                    Console.Clear();
                                     Console.WriteLine("Hejdå.");
-                                    Console.ReadLine();
+                                    Console.ReadKey();
                                     break;
                                 }
                                 else
                                 {
                                     Console.Clear();
-                                    Console.WriteLine("Vänligen svara med 1, 2 eller 3.");
-                                    Console.ReadLine();
+                                    Console.WriteLine("Vänligen svara med 1, 2, 3 eller 4.");
+                                    Console.ReadKey();
                                 }
 
 
@@ -173,7 +219,7 @@ while (1 == 1)
                 string InputPass = Console.ReadLine();
                 Customers.Add(CustomerType(UsernameInput, InputPass));
                 Console.WriteLine("Du är nu registrerad och kan logga in, du blir omdirigerad till hemskärmen.");
-                Console.ReadLine();                   
+                Console.ReadKey();                   
             }
             else
             {
@@ -182,7 +228,7 @@ while (1 == 1)
         }
         
     }
-    else if (answer1.Key == ConsoleKey.D1)
+    else if (answer1.Key == ConsoleKey.D2)
     {
         while (1 == 1)
         {
@@ -197,7 +243,7 @@ while (1 == 1)
                 string PasswordInput = Console.ReadLine();
                 Customers.Add(CustomerType(UsernameInput, PasswordInput));
                 Console.WriteLine("Du är nu registrerad, du kan nu logga in och dirigeras om till hemskärmen.");
-                Console.ReadLine();
+                Console.ReadKey();
                 break;
             }
             else
@@ -218,7 +264,7 @@ while (1 == 1)
     else
     {
         Console.WriteLine("Hejdå!");
-        Console.ReadLine();
+        Console.ReadKey();
         break;
     }
 }
@@ -299,21 +345,34 @@ bool Login (string user, string pass)
 
 void SaveObjects()
 {
-    string jsonString = JsonSerializer.Serialize(Customers, new JsonSerializerOptions { WriteIndented = true });
+    var options = new JsonSerializerOptions
+    {
+        WriteIndented = true,
+        Converters = { new CustomerConverter() }
+    };
+
+    string jsonString = JsonSerializer.Serialize(Customers, options);
     File.WriteAllText(filePath, jsonString);
 }
 
 void LoadObjects()
 {
-    string savedJson = File.ReadAllText(filePath);
     var options = new JsonSerializerOptions
     {
-        IncludeFields = true, 
-        WriteIndented = true
+        Converters = { new CustomerConverter() }
     };
 
-    Customers = JsonSerializer.Deserialize<List<Customer>>(savedJson, options);
+    try
+    {
+        string savedJson = File.ReadAllText(filePath);
+        Customers = JsonSerializer.Deserialize<List<Customer>>(savedJson, options);
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e.Message);
+    }
 }
+
 public class Product
 {
     public string Name { get; set; }
@@ -326,9 +385,20 @@ public class Product
         this.Price = Price;
     }
 
-    public void ShowProduct()
+    public void ShowProduct(string valuta)
     {
-        Console.WriteLine(Name + ", " + Price + "SEK");
+        double valutaConversion = 1;
+
+        if (valuta == "EUR")
+        {
+            valutaConversion = 0.089;
+        }
+        else if (valuta == "GBP")
+        {
+            valutaConversion = 0.074;
+        }
+
+            Console.WriteLine(Name + ", " + (Price * valutaConversion) + " " + valuta);
     }
 }
 
@@ -345,14 +415,26 @@ public class Customer
         this.Cart = Cart ?? new List<Product>();
     }
 
-    public virtual List<Product> CheckoutCart()
+    public virtual List<Product> CheckoutCart(string valuta)
     {
         double total = 0;
+        double valutaConversion = 1;
+
+        if (valuta == "EUR")
+        {
+            valutaConversion = 0.089;
+        }
+        else if (valuta == "GBP")
+        {
+            valutaConversion = 0.074;
+        }
+
         foreach (Product product in Cart)
         {
             total += product.Price; 
         }
-        Console.WriteLine("Din slutsumma är " + total + "SEK.");
+            Console.WriteLine("Din slutsumma är " + (total * valutaConversion) + " " + valuta);
+
         Cart = new List<Product>();
         return Cart;
     }
@@ -364,7 +446,7 @@ public class Customer
         return Cart;
     }
 
-    public virtual void ShowCart()
+    public virtual void ShowCart(string valuta)
     {
         double ColaCounter = 0;
         double PigelinCounter = 0;
@@ -372,6 +454,16 @@ public class Customer
         double ColaPriceTotal = 0;
         double PigelinPriceTotal = 0;
         double MarabouPriceTotal = 0;
+        double valutaConversion = 1;
+
+        if (valuta == "EUR")
+        {
+            valutaConversion = 0.089;
+        }
+        else if (valuta == "GBP")
+        {
+            valutaConversion = 0.074;
+        }
 
         foreach (Product p in Cart)
         {
@@ -394,32 +486,35 @@ public class Customer
         }
         if (ColaCounter > 0)
         {
-            Console.WriteLine(ColaCounter + "st Coca Cola: " + ColaPriceTotal + " SEK");
+            Console.WriteLine(ColaCounter + "st Coca Cola: " + (ColaPriceTotal * valutaConversion) + " " + valuta);
         }
         if (PigelinCounter > 0)
         {
-            Console.WriteLine(PigelinCounter + "st Pigelin: " + PigelinPriceTotal + " SEK");
+            Console.WriteLine(PigelinCounter + "st Pigelin: " + (PigelinPriceTotal * valutaConversion) + " " + valuta);
         }
         if (MarabouCounter > 0)
         {
-            Console.WriteLine(MarabouCounter + "st Marabou: " +  MarabouPriceTotal + " SEK");
+            Console.WriteLine(MarabouCounter + "st Marabou: " + (MarabouPriceTotal * valutaConversion) + " " + valuta);
         }
-        Console.WriteLine("Totalt: " + (MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) + " SEK");
+        Console.WriteLine("Totalt: " + ((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion) + " " + valuta);
+
+
     }
 
-    public void ToString()
+    public void ToString(string valuta)
     {
         Console.WriteLine("Username: " + Username + " Password: " + Password);
-        ShowCart();
+        ShowCart(valuta);
     }
 }
 
+[JsonConverter(typeof(CustomerConverter))]
 public class CustomerGold : Customer 
 {
     public CustomerGold(string Username, string Password, List<Product> Cart) : base (Username, Password, Cart)
     {
     }
-    public override void ShowCart()
+    public override void ShowCart(string valuta)
     {
         double ColaCounter = 0;
         double PigelinCounter = 0;
@@ -427,6 +522,16 @@ public class CustomerGold : Customer
         double ColaPriceTotal = 0;
         double PigelinPriceTotal = 0;
         double MarabouPriceTotal = 0;
+        double valutaConversion = 1;
+
+        if (valuta == "EUR")
+        {
+            valutaConversion = 0.089;
+        }
+        else if (valuta == "GBP")
+        {
+            valutaConversion = 0.074;
+        }
 
         foreach (Product p in Cart)
         {
@@ -449,40 +554,55 @@ public class CustomerGold : Customer
         }
         if (ColaCounter > 0)
         {
-            Console.WriteLine(ColaCounter + "st Coca Cola: " + ColaPriceTotal + " SEK");
+            Console.WriteLine(ColaCounter + "st Coca Cola: " + (ColaPriceTotal * valutaConversion) + " " + valuta);
         }
         if (PigelinCounter > 0)
         {
-            Console.WriteLine(PigelinCounter + "st Pigelin: " + PigelinPriceTotal + " SEK");
+            Console.WriteLine(PigelinCounter + "st Pigelin: " + (PigelinPriceTotal * valutaConversion) + " " + valuta);
         }
         if (MarabouCounter > 0)
         {
-            Console.WriteLine(MarabouCounter + "st Marabou: " + MarabouPriceTotal + " SEK");
+            Console.WriteLine(MarabouCounter + "st Marabou: " + (MarabouPriceTotal * valutaConversion) + " " + valuta);
         }
-        Console.WriteLine("Totalt: " + (MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) + " SEK");
-        Console.WriteLine("Med din rabatt på 15%: " + (MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal)*0.85);
+        Console.WriteLine("Totalt: " + ((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion) + " " + valuta);
+        Console.WriteLine("Med din rabatt på 15%: " + (((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion) * 0.85) + " " + valuta);
+
+
     }
 
-    public override List<Product> CheckoutCart()
+    public override List<Product> CheckoutCart(string valuta)
     {
         double total = 0;
+        double valutaConversion = 1;
+
+        if (valuta == "EUR")
+        {
+            valutaConversion = 0.089;
+        }
+        else if (valuta == "GBP")
+        {
+            valutaConversion = 0.074;
+        }
+
         foreach (Product product in Cart)
         {
             total += product.Price;
         }
-        Console.WriteLine("Din slutsumma är " + total * 0.85 + "SEK.");
+        Console.WriteLine("Din slutsumma är " + ((total * valutaConversion) * 0.85) + " " + valuta);
+
         Cart = new List<Product>();
         return Cart;
     }
 
 }
 
+[JsonConverter(typeof(CustomerConverter))]
 public class CustomerSilver : Customer
 {
     public CustomerSilver(string Username, string Password, List<Product> Cart) : base(Username, Password, Cart)
     {
     }
-    public override void ShowCart()
+    public override void ShowCart(string valuta)
     {
         double ColaCounter = 0;
         double PigelinCounter = 0;
@@ -490,6 +610,16 @@ public class CustomerSilver : Customer
         double ColaPriceTotal = 0;
         double PigelinPriceTotal = 0;
         double MarabouPriceTotal = 0;
+        double valutaConversion = 1;
+
+        if (valuta == "EUR")
+        {
+            valutaConversion = 0.089;
+        }
+        else if (valuta == "GBP")
+        {
+            valutaConversion = 0.074;
+        }
 
         foreach (Product p in Cart)
         {
@@ -512,38 +642,54 @@ public class CustomerSilver : Customer
         }
         if (ColaCounter > 0)
         {
-            Console.WriteLine(ColaCounter + "st Coca Cola: " + ColaPriceTotal + " SEK");
+            Console.WriteLine(ColaCounter + "st Coca Cola: " + (ColaPriceTotal * valutaConversion) + " " + valuta);
         }
         if (PigelinCounter > 0)
         {
-            Console.WriteLine(PigelinCounter + "st Pigelin: " + PigelinPriceTotal + " SEK");
+            Console.WriteLine(PigelinCounter + "st Pigelin: " + (PigelinPriceTotal * valutaConversion) + " " + valuta);
         }
         if (MarabouCounter > 0)
         {
-            Console.WriteLine(MarabouCounter + "st Marabou: " + MarabouPriceTotal + " SEK");
+            Console.WriteLine(MarabouCounter + "st Marabou: " + (MarabouPriceTotal * valutaConversion) + " " + valuta);
         }
-        Console.WriteLine("Totalt: " + (MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) + " SEK");
-        Console.WriteLine("Med din rabatt på 10%: " + (MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * 0.90);
+        Console.WriteLine("Totalt: " + ((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion) + " " + valuta);
+        Console.WriteLine("Med din rabatt på 10%: " + (((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion) * 0.90) + " " + valuta);
+
+
     }
 
-    public override List<Product> CheckoutCart()
+    public override List<Product> CheckoutCart(string valuta)
     {
         double total = 0;
+        double valutaConversion = 1;
+
+        if (valuta == "EUR")
+        {
+            valutaConversion = 0.089;
+        }
+        else if (valuta == "GBP")
+        {
+            valutaConversion = 0.074;
+        }
+
         foreach (Product product in Cart)
         {
             total += product.Price;
         }
-        Console.WriteLine("Din slutsumma är " + total * 0.90 + "SEK.");
+        Console.WriteLine("Din slutsumma är " + ((total * valutaConversion) * 0.9) + " " + valuta);
+
         Cart = new List<Product>();
         return Cart;
     }
 }
+
+[JsonConverter(typeof(CustomerConverter))]
 public class CustomerBronze: Customer
 {
     public CustomerBronze(string Username, string Password, List<Product> Cart) : base(Username, Password, Cart)
     {
     }
-    public override void ShowCart()
+    public override void ShowCart(string valuta)
     {
         double ColaCounter = 0;
         double PigelinCounter = 0;
@@ -551,6 +697,16 @@ public class CustomerBronze: Customer
         double ColaPriceTotal = 0;
         double PigelinPriceTotal = 0;
         double MarabouPriceTotal = 0;
+        double valutaConversion = 1;
+
+        if (valuta == "EUR")
+        {
+            valutaConversion = 0.089;
+        }
+        else if (valuta == "GBP")
+        {
+            valutaConversion = 0.074;
+        }
 
         foreach (Product p in Cart)
         {
@@ -573,30 +729,77 @@ public class CustomerBronze: Customer
         }
         if (ColaCounter > 0)
         {
-            Console.WriteLine(ColaCounter + "st Coca Cola: " + ColaPriceTotal + " SEK");
+            Console.WriteLine(ColaCounter + "st Coca Cola: " + (ColaPriceTotal * valutaConversion) + " " + valuta);
         }
         if (PigelinCounter > 0)
         {
-            Console.WriteLine(PigelinCounter + "st Pigelin: " + PigelinPriceTotal + " SEK");
+            Console.WriteLine(PigelinCounter + "st Pigelin: " + (PigelinPriceTotal * valutaConversion) + " " + valuta);
         }
         if (MarabouCounter > 0)
         {
-            Console.WriteLine(MarabouCounter + "st Marabou: " + MarabouPriceTotal + " SEK");
+            Console.WriteLine(MarabouCounter + "st Marabou: " + (MarabouPriceTotal * valutaConversion) + " " + valuta);
         }
-        Console.WriteLine("Totalt: " + (MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) + " SEK");
-        Console.WriteLine("Med din rabatt på 5%: " + (MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * 0.95);
+        Console.WriteLine("Totalt: " + ((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion) + " " + valuta);
+        Console.WriteLine("Med din rabatt på 5%: " + (((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion) * 0.95) + " " + valuta);
     }
-
-    public override List<Product> CheckoutCart()
+  
+    public override List<Product> CheckoutCart(string valuta)
     {
         double total = 0;
+        double valutaConversion = 1;
+
+        if (valuta == "EUR")
+        {
+            valutaConversion = 0.089;
+        }
+        else if (valuta == "GBP")
+        {
+            valutaConversion = 0.074;
+        }
+
         foreach (Product product in Cart)
         {
             total += product.Price;
         }
-        Console.WriteLine("Din slutsumma är " + total * 0.95 + "SEK.");
+        Console.WriteLine("Din slutsumma är " + ((total * valutaConversion)* 0.95) + " " + valuta);
+
         Cart = new List<Product>();
         return Cart;
     }
 
+}
+
+public class CustomerConverter : JsonConverter<Customer>
+{
+    public override Customer Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        using (JsonDocument doc = JsonDocument.ParseValue(ref reader))
+        {
+            var root = doc.RootElement;
+            string customerType = root.GetProperty("CustomerType").GetString();
+            string username = root.GetProperty("Username").GetString();
+            string password = root.GetProperty("Password").GetString();
+
+            List<Product> cart = JsonSerializer.Deserialize<List<Product>>(root.GetProperty("Cart").GetRawText(), options);
+
+            return customerType switch
+            {
+                "CustomerGold" => new CustomerGold(username, password, cart),
+                "CustomerSilver" => new CustomerSilver(username, password, cart),
+                "CustomerBronze" => new CustomerBronze(username, password, cart),
+                _ => new Customer(username, password, cart),
+            };
+        }
+    }
+
+    public override void Write(Utf8JsonWriter writer, Customer value, JsonSerializerOptions options)
+    {
+        writer.WriteStartObject();
+        writer.WriteString("Username", value.Username);
+        writer.WriteString("Password", value.Password);
+        writer.WriteString("CustomerType", value.GetType().Name);
+        writer.WritePropertyName("Cart");
+        JsonSerializer.Serialize(writer, value.Cart, options);
+        writer.WriteEndObject();
+    }
 }
