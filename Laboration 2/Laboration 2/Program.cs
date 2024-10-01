@@ -76,9 +76,9 @@ while (1 == 1)
                                     while (1 == 1)
                                     {
                                         Console.Clear();
-                                        Console.Write("1"); Pigelin.ShowProduct(valuta);
-                                        Console.Write("2"); Cola.ShowProduct(valuta);
-                                        Console.Write("3"); Marabou.ShowProduct(valuta);
+                                        Console.Write("1. "); Pigelin.ShowProduct(valuta);
+                                        Console.Write("2. "); Cola.ShowProduct(valuta);
+                                        Console.Write("3. "); Marabou.ShowProduct(valuta);
                                         Console.WriteLine();
                                         Console.WriteLine("Skriv in siffran framför den produkt du vill lägga till i varukorgen och tryck enter eller valfri symbol och/eller enter för att gå tillbaka till menyn.");
                                         string answer2 = Console.ReadLine();
@@ -398,7 +398,7 @@ public class Product
             valutaConversion = 0.074;
         }
 
-            Console.WriteLine(Name + ", " + (Price * valutaConversion) + " " + valuta);
+            Console.WriteLine(Name + ": " + (Price * valutaConversion) + " " + valuta + " St");
     }
 }
 
