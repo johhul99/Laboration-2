@@ -7,8 +7,8 @@ using System.Collections.Generic;
 
 
 Product Pigelin = new Product("Pigelin", 12);
-Product Cola = new Product("Coca Cola", 15.99);
-Product Marabou = new Product("Marabou", 24.95);
+Product Cola = new Product("Coca Cola", 16);
+Product Marabou = new Product("Marabou", 25);
 
 List <Product> products = new List<Product> { { Pigelin }, { Cola }, { Marabou } };
 
@@ -451,10 +451,11 @@ public class Customer
         double ColaCounter = 0;
         double PigelinCounter = 0;
         double MarabouCounter = 0;
-        double ColaPriceTotal = 0;
-        double PigelinPriceTotal = 0;
-        double MarabouPriceTotal = 0;
         double valutaConversion = 1;
+        double PigelinPrice = 0;
+        double ColaPrice = 0;
+        double MarabouPrice = 0;
+
 
         if (valuta == "EUR")
         {
@@ -470,31 +471,36 @@ public class Customer
             if (p.Name == "Pigelin")
             {
                 PigelinCounter++;
-                PigelinPriceTotal += 12;
+                PigelinPrice = p.Price;
             }
             else if (p.Name == "Coca Cola")
             {
                 ColaCounter++;
-                ColaPriceTotal += 15.99;
+                ColaPrice = p.Price;
             }
-            else
+            else if (p.Name == "Marabou")
             {
                 MarabouCounter++;
-                MarabouPriceTotal += 24.95;
+                MarabouPrice = p.Price;
             }
 
         }
-        if (ColaCounter > 0)
-        {
-            Console.WriteLine(ColaCounter + "st Coca Cola: " + (ColaPriceTotal * valutaConversion) + " " + valuta);
-        }
+
+        double PigelinPriceTotal = PigelinPrice * PigelinCounter;
+        double ColaPriceTotal = ColaPrice * ColaCounter;
+        double MarabouPriceTotal = MarabouPrice * MarabouCounter;
+
         if (PigelinCounter > 0)
         {
-            Console.WriteLine(PigelinCounter + "st Pigelin: " + (PigelinPriceTotal * valutaConversion) + " " + valuta);
+            Console.WriteLine("Pigelin " + PigelinPrice + "kr st x" + PigelinCounter + " Totalt:" + (PigelinPriceTotal * valutaConversion) + " " + valuta);
+        }
+        if (ColaCounter > 0)
+        {
+            Console.WriteLine("Coca Cola " + ColaPrice + "kr st x" + ColaCounter + " Totalt:" + (ColaPriceTotal * valutaConversion) + " " + valuta);
         }
         if (MarabouCounter > 0)
         {
-            Console.WriteLine(MarabouCounter + "st Marabou: " + (MarabouPriceTotal * valutaConversion) + " " + valuta);
+            Console.WriteLine("Marabou " + MarabouPrice + "kr st x" + MarabouCounter + " Totalt:" + (MarabouPriceTotal * valutaConversion) + " " + valuta);
         }
         Console.WriteLine("Totalt: " + ((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion) + " " + valuta);
 
@@ -519,10 +525,11 @@ public class CustomerGold : Customer
         double ColaCounter = 0;
         double PigelinCounter = 0;
         double MarabouCounter = 0;
-        double ColaPriceTotal = 0;
-        double PigelinPriceTotal = 0;
-        double MarabouPriceTotal = 0;
         double valutaConversion = 1;
+        double PigelinPrice = 0;
+        double ColaPrice = 0;
+        double MarabouPrice = 0;
+
 
         if (valuta == "EUR")
         {
@@ -538,31 +545,36 @@ public class CustomerGold : Customer
             if (p.Name == "Pigelin")
             {
                 PigelinCounter++;
-                PigelinPriceTotal += 12;
+                PigelinPrice = p.Price;
             }
             else if (p.Name == "Coca Cola")
             {
                 ColaCounter++;
-                ColaPriceTotal += 15.99;
+                ColaPrice = p.Price;
             }
-            else
+            else if (p.Name == "Marabou")
             {
                 MarabouCounter++;
-                MarabouPriceTotal += 24.95;
+                MarabouPrice = p.Price;
             }
 
         }
-        if (ColaCounter > 0)
-        {
-            Console.WriteLine(ColaCounter + "st Coca Cola: " + (ColaPriceTotal * valutaConversion) + " " + valuta);
-        }
+
+        double PigelinPriceTotal = PigelinPrice * PigelinCounter;
+        double ColaPriceTotal = ColaPrice * ColaCounter;
+        double MarabouPriceTotal = MarabouPrice * MarabouCounter;
+
         if (PigelinCounter > 0)
         {
-            Console.WriteLine(PigelinCounter + "st Pigelin: " + (PigelinPriceTotal * valutaConversion) + " " + valuta);
+            Console.WriteLine("Pigelin " + PigelinPrice + "kr st x" + PigelinCounter + " Totalt:" + (PigelinPriceTotal * valutaConversion) + " " + valuta);
+        }
+        if (ColaCounter > 0)
+        {
+            Console.WriteLine("Coca Cola " + ColaPrice + "kr st x" + ColaCounter + " Totalt:" + (ColaPriceTotal * valutaConversion) + " " + valuta);
         }
         if (MarabouCounter > 0)
         {
-            Console.WriteLine(MarabouCounter + "st Marabou: " + (MarabouPriceTotal * valutaConversion) + " " + valuta);
+            Console.WriteLine("Marabou " + MarabouPrice + "kr st x" + MarabouCounter + " Totalt:" + (MarabouPriceTotal * valutaConversion) + " " + valuta);
         }
         Console.WriteLine("Totalt: " + ((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion) + " " + valuta);
         Console.WriteLine("Med din rabatt på 15%: " + (((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion) * 0.85) + " " + valuta);
@@ -607,10 +619,11 @@ public class CustomerSilver : Customer
         double ColaCounter = 0;
         double PigelinCounter = 0;
         double MarabouCounter = 0;
-        double ColaPriceTotal = 0;
-        double PigelinPriceTotal = 0;
-        double MarabouPriceTotal = 0;
         double valutaConversion = 1;
+        double PigelinPrice = 0;
+        double ColaPrice = 0;
+        double MarabouPrice = 0;
+
 
         if (valuta == "EUR")
         {
@@ -626,31 +639,36 @@ public class CustomerSilver : Customer
             if (p.Name == "Pigelin")
             {
                 PigelinCounter++;
-                PigelinPriceTotal += 12;
+                PigelinPrice = p.Price;
             }
             else if (p.Name == "Coca Cola")
             {
                 ColaCounter++;
-                ColaPriceTotal += 15.99;
+                ColaPrice = p.Price;
             }
-            else
+            else if (p.Name == "Marabou")
             {
                 MarabouCounter++;
-                MarabouPriceTotal += 24.95;
+                MarabouPrice = p.Price;
             }
 
         }
-        if (ColaCounter > 0)
-        {
-            Console.WriteLine(ColaCounter + "st Coca Cola: " + (ColaPriceTotal * valutaConversion) + " " + valuta);
-        }
+
+        double PigelinPriceTotal = PigelinPrice * PigelinCounter;
+        double ColaPriceTotal = ColaPrice * ColaCounter;
+        double MarabouPriceTotal = MarabouPrice * MarabouCounter;
+
         if (PigelinCounter > 0)
         {
-            Console.WriteLine(PigelinCounter + "st Pigelin: " + (PigelinPriceTotal * valutaConversion) + " " + valuta);
+            Console.WriteLine("Pigelin " + PigelinPrice + "kr st x" + PigelinCounter + " Totalt:" + (PigelinPriceTotal * valutaConversion) + " " + valuta);
+        }
+        if (ColaCounter > 0)
+        {
+            Console.WriteLine("Coca Cola " + ColaPrice + "kr st x" + ColaCounter + " Totalt:" + (ColaPriceTotal * valutaConversion) + " " + valuta);
         }
         if (MarabouCounter > 0)
         {
-            Console.WriteLine(MarabouCounter + "st Marabou: " + (MarabouPriceTotal * valutaConversion) + " " + valuta);
+            Console.WriteLine("Marabou " + MarabouPrice + "kr st x" + MarabouCounter + " Totalt:" + (MarabouPriceTotal * valutaConversion) + " " + valuta);
         }
         Console.WriteLine("Totalt: " + ((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion) + " " + valuta);
         Console.WriteLine("Med din rabatt på 10%: " + (((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion) * 0.90) + " " + valuta);
@@ -694,10 +712,11 @@ public class CustomerBronze: Customer
         double ColaCounter = 0;
         double PigelinCounter = 0;
         double MarabouCounter = 0;
-        double ColaPriceTotal = 0;
-        double PigelinPriceTotal = 0;
-        double MarabouPriceTotal = 0;
         double valutaConversion = 1;
+        double PigelinPrice = 0;
+        double ColaPrice = 0;
+        double MarabouPrice = 0;
+
 
         if (valuta == "EUR")
         {
@@ -713,31 +732,36 @@ public class CustomerBronze: Customer
             if (p.Name == "Pigelin")
             {
                 PigelinCounter++;
-                PigelinPriceTotal += 12;
+                PigelinPrice = p.Price;
             }
             else if (p.Name == "Coca Cola")
             {
                 ColaCounter++;
-                ColaPriceTotal += 15.99;
+                ColaPrice = p.Price;
             }
-            else
+            else if (p.Name == "Marabou")
             {
                 MarabouCounter++;
-                MarabouPriceTotal += 24.95;
+                MarabouPrice = p.Price;
             }
 
         }
-        if (ColaCounter > 0)
-        {
-            Console.WriteLine(ColaCounter + "st Coca Cola: " + (ColaPriceTotal * valutaConversion) + " " + valuta);
-        }
+
+        double PigelinPriceTotal = PigelinPrice * PigelinCounter;
+        double ColaPriceTotal = ColaPrice * ColaCounter;
+        double MarabouPriceTotal = MarabouPrice * MarabouCounter;
+
         if (PigelinCounter > 0)
         {
-            Console.WriteLine(PigelinCounter + "st Pigelin: " + (PigelinPriceTotal * valutaConversion) + " " + valuta);
+            Console.WriteLine("Pigelin " + PigelinPrice + "kr st x" + PigelinCounter + " Totalt:" + (PigelinPriceTotal * valutaConversion) + " " + valuta);
+        }
+        if (ColaCounter > 0)
+        {
+            Console.WriteLine("Coca Cola " + ColaPrice + "kr st x" + ColaCounter + " Totalt:" + (ColaPriceTotal * valutaConversion) + " " + valuta);
         }
         if (MarabouCounter > 0)
         {
-            Console.WriteLine(MarabouCounter + "st Marabou: " + (MarabouPriceTotal * valutaConversion) + " " + valuta);
+            Console.WriteLine("Marabou " + MarabouPrice + "kr st x" + MarabouCounter + " Totalt:" + (MarabouPriceTotal * valutaConversion) + " " + valuta);
         }
         Console.WriteLine("Totalt: " + ((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion) + " " + valuta);
         Console.WriteLine("Med din rabatt på 5%: " + (((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion) * 0.95) + " " + valuta);
