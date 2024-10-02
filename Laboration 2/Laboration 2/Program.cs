@@ -9,7 +9,7 @@ Product Pigelin = new Product("Pigelin", 12);
 Product Cola = new Product("Coca Cola", 16);
 Product Marabou = new Product("Marabou", 25);
 
-List <Product> products = new List<Product> { { Pigelin }, { Cola }, { Marabou } };
+List <Product> products = new List<Product> { { Pigelin }, { Cola }, { Marabou } }; //För att inte behöva ändra i konsollapplikationslogiken om man vill lägga till fler produkter
 
 CustomerGold Test1 = new CustomerGold("Test1", "Test1", new List<Product>());
 CustomerSilver Test2 = new CustomerSilver("Test2", "Test2", new List<Product>());
@@ -17,7 +17,7 @@ CustomerBronze Test3 = new CustomerBronze("Test3", "Test3", new List<Product>())
 Customer Bas1 = new Customer("Bas1", "Bas1", new List<Product>());
 
 
-List<Customer> Customers = new List<Customer> { { Test1 }, { Test2 }, { Test3 }, { Bas1 } };
+List<Customer> Customers = new List<Customer> { { Test1 }, { Test2 }, { Test3 }, { Bas1 } }; //För att kunna logga in.
 
 
 
@@ -25,7 +25,7 @@ string filePath = "data.json";
 
 LoadObjects();
 
-while (1 == 1)
+while (1 == 1) // Så att man kan gå tillbaka till startskärm 
 {
     Console.Clear();
     Console.WriteLine("Välkommen till Johans Kiosk!");
@@ -40,7 +40,7 @@ while (1 == 1)
         Console.WriteLine("Ange användarnamn:");
         string UsernameInput = Console.ReadLine();
         bool UsernameSuccess = LoginUsername(UsernameInput);
-        if (UsernameSuccess)
+        if (UsernameSuccess) //Kontrollerar först användarnamn för att kunna ge möjlighet för att registrera om användarnamnet ej finns eller skriva in lösenord igen ifall man skriver fel längre ner
         {
             while (1 == 1)
             {
@@ -56,10 +56,10 @@ while (1 == 1)
                     {
                         if (C.Username == UsernameInput)
                         {
-                            Customer Active = C;
-                            string valuta = "SEK";
+                            Customer Active = C; //Ger inloggad kund en tillfällig variabel för att kunna kalla på metoder och ändra i kundvagn
+                            string valuta = "SEK"; //Tillåter inloggad användare att välja valuta som återställs till SEK varje gång man loggar ut
 
-                            while (1 == 1)
+                            while (1 == 1) //Så att man kan komma tillbaka till menyn nedan
                             {
                                 Console.Clear();
                                 Console.WriteLine("Välkommen " + UsernameInput + "!");
@@ -78,7 +78,7 @@ while (1 == 1)
                                         Product.ShowProduct(valuta, products);
                                         Console.WriteLine();
                                         Console.WriteLine("Skriv in siffran framför den produkt du vill lägga till i varukorgen och tryck enter eller valfri symbol och/eller enter för att gå tillbaka till menyn.");
-                                        string answer2 = Console.ReadLine();
+                                        string answer2 = Console.ReadLine(); //ReadLine så att man inte råkar lägga till något man ej vill ha i varukorgen
                                         if (answer2 == "1" || answer2 == "2" || answer2 == "3")
                                         {
                                             for (int i = 0; i < products.Count; i++)
@@ -268,11 +268,11 @@ SaveObjects();
 
 
 
-bool Register(string user)
+bool Register(string user) 
 {
     foreach (Customer c in Customers)
     {
-        if (c.Username == user)
+        if (c.Username == user) //Så två användare ej kan ha samma användarnamn
         {
             return false;
         }
@@ -280,7 +280,7 @@ bool Register(string user)
     return true;
 }
 
-Customer CustomerType(string UsernameInput, string InputPass)
+Customer CustomerType(string UsernameInput, string InputPass) //Så man kan välja kundtyp vid registrering (i syfte av uppgiften, ologiskt sätt att bygga på annars som vi pratat om :))
 {
     Customer c2;
     while (1 == 1)
@@ -315,7 +315,7 @@ Customer CustomerType(string UsernameInput, string InputPass)
     return c2;
 }
 
-bool LoginUsername(string user)
+bool LoginUsername(string user) 
 {
     foreach (Customer c in Customers)
     {
@@ -339,7 +339,7 @@ bool Login(string user, string pass)
     return false;
 }
 
-void SaveObjects()
+void SaveObjects() 
 {
     var options = new JsonSerializerOptions
     {
@@ -358,14 +358,13 @@ void LoadObjects()
         Converters = { new CustomerConverter() }
     };
 
-    try
+    try //Ifall filen ej finns kan programmet ändå köras och utgå ifrån endast listan, första gången programmet körs skapas filen i SaveObjects ovan
     {
         string savedJson = File.ReadAllText(filePath);
         Customers = JsonSerializer.Deserialize<List<Customer>>(savedJson, options);
     }
-    catch (Exception e)
+    catch (Exception ex) //Finns filen så händer inget istället för att programmet ska krascha
     {
-        Console.WriteLine(e.Message);
     }
 }
 
