@@ -18,7 +18,7 @@ namespace KlasserOchObjekt
             this.Price = Price;
         }
 
-        public void ShowProduct(string valuta)
+        public static void ShowProduct(string valuta, List<Product> products)
         {
             double valutaConversion = 1;
 
@@ -31,7 +31,11 @@ namespace KlasserOchObjekt
                 valutaConversion = 0.074;
             }
 
-            Console.WriteLine(Name + ": " + (Price * valutaConversion) + " " + valuta + " St");
+            for(int i = 0; i < products.Count; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + products[i].Name + ": " + (products[i].Price * valutaConversion) + " " + valuta + " St");
+            }
+            
         }
     }
 
