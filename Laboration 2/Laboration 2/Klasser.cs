@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KlasserOchObjekt
 {
-    public class Product
+    public class Product //Produktklass
     {
         public string Name { get; set; }
         public double Price { get; set; }
@@ -18,7 +18,7 @@ namespace KlasserOchObjekt
             this.Price = Price;
         }
 
-        public void ShowProduct(string valuta)
+        public static void ShowProduct(string valuta, List<Product> products) //Så att man ej behöver ända i konsollapplikationen om man lägger till produkter i kioskens utbud utan bara lägger till i products som ligger i program.cs
         {
             double valutaConversion = 1;
 
@@ -31,7 +31,11 @@ namespace KlasserOchObjekt
                 valutaConversion = 0.074;
             }
 
-            Console.WriteLine(Name + ": " + Math.Round((Price * valutaConversion), 2) + " " + valuta + " St");
+            for(int i = 0; i < products.Count; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + products[i].Name + ": " + (products[i].Price * valutaConversion) + " " + valuta + " St");
+            }
+            
         }
     }
 
@@ -41,7 +45,7 @@ namespace KlasserOchObjekt
         public string Password { get; private set; }
         public List<Product> Cart { get; set; }
 
-        public Customer(string Username, string Password, List<Product> Cart)
+        public Customer(string Username, string Password, List<Product> Cart) //Så att Customer serialieseras korrekt från Json, annars kunde man skippat Cart i konstruktorn
         {
             this.Username = Username;
             this.Password = Password;
@@ -55,7 +59,7 @@ namespace KlasserOchObjekt
             return Cart;
         }
 
-        public virtual double ShowCart(string valuta)
+        public virtual double ShowCart(string valuta) //Double för att kunna kalla på basmetoden i subkklasser
         {
             double ColaCounter = 0;
             double PigelinCounter = 0;
@@ -117,7 +121,7 @@ namespace KlasserOchObjekt
             return total;
         }
 
-        public double ToString(string valuta)
+        public double ToString(string valuta) //double för att kunna kalla på metod i CheckoutCart
         {
             Console.WriteLine("Username: " + Username + " Password: " + Password);
             double total = ShowCart(valuta);
@@ -142,7 +146,7 @@ namespace KlasserOchObjekt
         public override double ShowCart(string valuta)
         {
             double total = base.ShowCart(valuta);
-            Console.WriteLine("Med din rabatt på 15%: " + Math.Round((total * 0.85), 2) + " " + valuta);
+            Console.WriteLine("Med din rabatt på 15%: " + (total * 0.85) + " " + valuta);//För att ge rätt rabatt
             return total;
 
         }
@@ -150,15 +154,15 @@ namespace KlasserOchObjekt
         public override List<Product> CheckoutCart(string valuta)
         {
             double total = ToString(valuta);
-            Console.WriteLine("Din slutsumma är " + Math.Round((total * 0.85), 2) + " " + valuta);
-            Cart = new List<Product>();
+            Console.WriteLine("Din slutsumma är " + (total * 0.85)+ " " + valuta);//För att ge rätt rabatt
+            Cart = new List<Product>();//"Tömmer" kundvagnen
             return Cart;
         }
 
     }
 
     [JsonConverter(typeof(CustomerConverter))]
-    public class CustomerSilver : Customer
+    public class CustomerSilver : Customer //Ser likadan ut som CustomerGold med en annan rabatt given. Samma gäller CustomerBronze nedan
     {
         public CustomerSilver(string Username, string Password, List<Product> Cart) : base(Username, Password, Cart)
         {
@@ -202,7 +206,7 @@ namespace KlasserOchObjekt
 
     }
 
-    public class CustomerConverter : JsonConverter<Customer>
+    public class CustomerConverter : JsonConverter<Customer> //För att serialiseringen ska ske korrekt
     {
         public override Customer Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
