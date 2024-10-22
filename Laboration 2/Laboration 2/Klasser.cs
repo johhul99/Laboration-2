@@ -31,7 +31,7 @@ namespace KlasserOchObjekt
                 valutaConversion = 0.074;
             }
 
-            Console.WriteLine(Name + ": " + (Price * valutaConversion) + " " + valuta + " St");
+            Console.WriteLine(Name + ": " + Math.Round((Price * valutaConversion), 2) + " " + valuta + " St");
         }
     }
 
@@ -101,17 +101,17 @@ namespace KlasserOchObjekt
 
             if (PigelinCounter > 0)
             {
-                Console.WriteLine("Pigelin " + PigelinPrice + "kr st x" + PigelinCounter + " Totalt:" + (PigelinPriceTotal * valutaConversion) + " " + valuta);
+                Console.WriteLine("Pigelin " + Math.Round((PigelinPrice * valutaConversion), 2) + valuta + "st x" + PigelinCounter + " Totalt:" + Math.Round((PigelinPriceTotal * valutaConversion), 2) + " " + valuta);
             }
             if (ColaCounter > 0)
             {
-                Console.WriteLine("Coca Cola " + ColaPrice + "kr st x" + ColaCounter + " Totalt:" + (ColaPriceTotal * valutaConversion) + " " + valuta);
+                Console.WriteLine("Coca Cola " + Math.Round((ColaPrice * valutaConversion), 2) + valuta + " st x" + ColaCounter + " Totalt:" + Math.Round((ColaPriceTotal * valutaConversion), 2) + " " + valuta);
             }
             if (MarabouCounter > 0)
             {
-                Console.WriteLine("Marabou " + MarabouPrice + "kr st x" + MarabouCounter + " Totalt:" + (MarabouPriceTotal * valutaConversion) + " " + valuta);
+                Console.WriteLine("Marabou " + Math.Round((MarabouPrice * valutaConversion), 2) + valuta + " st x" + MarabouCounter + " Totalt:" + Math.Round((MarabouPriceTotal * valutaConversion), 2) + " " + valuta);
             }
-            Console.WriteLine("Totalt: " + ((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion) + " " + valuta);
+            Console.WriteLine("Totalt: " + Math.Round(((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion), 2) + " " + valuta);
 
             double total = ((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion);
             return total;
@@ -127,7 +127,7 @@ namespace KlasserOchObjekt
         public virtual List<Product> CheckoutCart(string valuta)
         {
             double total = ToString(valuta);
-            Console.WriteLine("Din slutsumma är " + total + " " + valuta);
+            Console.WriteLine("Din slutsumma är " + Math.Round(total, 2) + " " + valuta);
             Cart = new List<Product>();
             return Cart;
         }
@@ -142,7 +142,7 @@ namespace KlasserOchObjekt
         public override double ShowCart(string valuta)
         {
             double total = base.ShowCart(valuta);
-            Console.WriteLine("Med din rabatt på 15%: " + (total * 0.85) + " " + valuta);
+            Console.WriteLine("Med din rabatt på 15%: " + Math.Round((total * 0.85), 2) + " " + valuta);
             return total;
 
         }
@@ -150,7 +150,7 @@ namespace KlasserOchObjekt
         public override List<Product> CheckoutCart(string valuta)
         {
             double total = ToString(valuta);
-            Console.WriteLine("Din slutsumma är " + (total * 0.85)+ " " + valuta);
+            Console.WriteLine("Din slutsumma är " + Math.Round((total * 0.85), 2) + " " + valuta);
             Cart = new List<Product>();
             return Cart;
         }
@@ -166,14 +166,14 @@ namespace KlasserOchObjekt
         public override double ShowCart(string valuta)
         {
             double total = base.ShowCart(valuta);
-            Console.WriteLine("Med din rabatt på 10%: " + (total * 0.90) + " " + valuta);
+            Console.WriteLine("Med din rabatt på 10%: " + Math.Round((total * 0.90), 2) + " " + valuta);
             return total;            
         }
 
         public override List<Product> CheckoutCart(string valuta)
         {
             double total = ToString(valuta);
-            Console.WriteLine("Din slutsumma är " + (total * 0.9) + " " + valuta);
+            Console.WriteLine("Din slutsumma är " + Math.Round((total * 0.9), 2) + " " + valuta);
             Cart = new List<Product>();
             return Cart;
         }
@@ -188,14 +188,14 @@ namespace KlasserOchObjekt
         public override double ShowCart(string valuta)
         {
             double total = base.ShowCart(valuta);
-            Console.WriteLine("Med din rabatt på 5%: " + (total * 0.95) + " " + valuta);
+            Console.WriteLine("Med din rabatt på 5%: " + Math.Round((total * 0.95), 2) + " " + valuta);
             return total;
         }
 
         public override List<Product> CheckoutCart(string valuta)
         {
             double total = ToString(valuta);
-            Console.WriteLine("Din slutsumma är " + (total * 0.95) + " " + valuta);
+            Console.WriteLine("Din slutsumma är " + Math.Round((total * 0.95), 2) + " " + valuta);
             Cart = new List<Product>();
             return Cart;
         }
