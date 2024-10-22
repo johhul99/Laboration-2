@@ -33,7 +33,7 @@ namespace KlasserOchObjekt
 
             for(int i = 0; i < products.Count; i++)
             {
-                Console.WriteLine((i + 1) + ". " + products[i].Name + ": " + (products[i].Price * valutaConversion) + " " + valuta + " St");
+                Console.WriteLine((i + 1) + ". " + products[i].Name + ": " + Math.Round((products[i].Price * valutaConversion),2) + " " + valuta + " St");
             }
             
         }
@@ -105,15 +105,15 @@ namespace KlasserOchObjekt
 
             if (PigelinCounter > 0)
             {
-                Console.WriteLine("Pigelin " + Math.Round((PigelinPrice * valutaConversion), 2) + valuta + "st x" + PigelinCounter + " Totalt:" + Math.Round((PigelinPriceTotal * valutaConversion), 2) + " " + valuta);
+                Console.WriteLine("Pigelin " + Math.Round((PigelinPrice * valutaConversion), 2) + " " + valuta + " st x" + PigelinCounter + " Totalt:" + Math.Round((PigelinPriceTotal * valutaConversion), 2) + " " + valuta);
             }
             if (ColaCounter > 0)
             {
-                Console.WriteLine("Coca Cola " + Math.Round((ColaPrice * valutaConversion), 2) + valuta + " st x" + ColaCounter + " Totalt:" + Math.Round((ColaPriceTotal * valutaConversion), 2) + " " + valuta);
+                Console.WriteLine("Coca Cola " + Math.Round((ColaPrice * valutaConversion), 2) + " " + valuta + " st x" + ColaCounter + " Totalt:" + Math.Round((ColaPriceTotal * valutaConversion), 2) + " " + valuta);
             }
             if (MarabouCounter > 0)
             {
-                Console.WriteLine("Marabou " + Math.Round((MarabouPrice * valutaConversion), 2) + valuta + " st x" + MarabouCounter + " Totalt:" + Math.Round((MarabouPriceTotal * valutaConversion), 2) + " " + valuta);
+                Console.WriteLine("Marabou " + Math.Round((MarabouPrice * valutaConversion), 2) + " " + valuta + " st x" + MarabouCounter + " Totalt:" + Math.Round((MarabouPriceTotal * valutaConversion), 2) + " " + valuta);
             }
             Console.WriteLine("Totalt: " + Math.Round(((MarabouPriceTotal + PigelinPriceTotal + ColaPriceTotal) * valutaConversion), 2) + " " + valuta);
 
